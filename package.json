@@ -1,0 +1,11 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "description": "A boilerplate for ExpressJS",
+  "main": "./src/server.js",
+  "author": "Kurt Timajo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
