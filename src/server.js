@@ -10,6 +10,7 @@ const app = express();
 // dependencies
 const authRoutes = require('./api/routes/auth.route');
 const personnelRoutes = require('./api/routes/personnel.route');
+const attendanceRoutes = require('./api/routes/attendance.route');
 
 // connect to database
 connectToDb();
@@ -21,6 +22,7 @@ app.use(express.json());
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/personnel', personnelRoutes);
+app.use('/api/attendance', attendanceRoutes);
 
 // start server
 app.listen(process.env.PORT, () => {
