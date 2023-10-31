@@ -8,7 +8,7 @@ const connectToDb = require('./config/connectToDb');
 const app = express();
 
 // dependencies
-// const authRoutes = require('./api/routes/auth.route');
+const authRoutes = require('./api/routes/auth.route');
 
 // connect to database
 connectToDb();
@@ -18,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
+app.use('/api/auth', authRoutes);
 
 // start server
 app.listen(process.env.PORT, () => {
