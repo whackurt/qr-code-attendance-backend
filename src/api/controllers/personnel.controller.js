@@ -28,6 +28,24 @@ exports.getPersonnel = async (req, res) => {
 	}
 };
 
+// Get personnel by ID
+exports.getPersonnelById = async (req, res) => {
+	try {
+		const personnelId = req.params.id; // Get the ID from the route parameter
+
+		// Use the "personnelId" value to find the personnel by their ID
+		const personnel = await Personnel.findById(personnelId);
+
+		if (!personnel) {
+			return res.status(404).json({ message: 'Personnel not found.' });
+		}
+
+		res.status(200).json(personnel);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
 exports.updatePersonnel = async (req, res) => {
 	try {
 		const { qr_code } = req.params; // Assuming you use the QR code as a unique identifier

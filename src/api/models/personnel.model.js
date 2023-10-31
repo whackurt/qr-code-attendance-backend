@@ -4,6 +4,7 @@ const personnelSchema = new mongoose.Schema({
 	qr_code: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	first_name: {
 		type: String,
