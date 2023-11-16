@@ -77,7 +77,6 @@ exports.getAttendanceByDate = async (req, res) => {
 	try {
 		const date = req.params.date; // Get the date from the route parameter
 
-		// Use the "date" value to filter attendance records
 		const attendance = await Attendance.find({
 			date: date + 'T00:00:00.000Z',
 		}).populate('personnel');
