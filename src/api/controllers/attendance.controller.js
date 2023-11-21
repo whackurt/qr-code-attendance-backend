@@ -9,7 +9,7 @@ exports.createAttendance = async (req, res) => {
 		const personnel = await Personnel.findOne({ qr_code });
 
 		if (!personnel) {
-			res
+			return res
 				.status(404)
 				.json({ message: 'Personnel with code ' + qr_code + ' not found.' });
 		}
@@ -38,7 +38,7 @@ exports.createAttendance = async (req, res) => {
 			remarks,
 		});
 
-		res.status(201).json(attendance);
+		return res.status(201).json(attendance);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
