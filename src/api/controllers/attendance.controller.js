@@ -4,7 +4,7 @@ const Personnel = require('../models/personnel.model');
 // Create a new attendance record
 exports.createAttendance = async (req, res) => {
 	try {
-		const { qr_code, remarks } = req.body;
+		const { qr_code, remarks, dateTime } = req.body;
 
 		const personnel = await Personnel.findOne({ qr_code });
 
@@ -14,27 +14,10 @@ exports.createAttendance = async (req, res) => {
 				.json({ message: 'Personnel with code ' + qr_code + ' not found.' });
 		}
 
-		const currentDate = new Date();
-
-		const date =
-			currentDate.getFullYear() +
-			'-' +
-			(currentDate.getMonth() + 1) +
-			'-' +
-			currentDate.getDate();
-
-		const time =
-			currentDate.getHours() +
-			':' +
-			currentDate.getMinutes() +
-			':' +
-			currentDate.getSeconds();
-
 		const attendance = await Attendance.create({
 			qr_code,
 			personnel: personnel._id,
-			date,
-			time,
+			dateTime,
 			remarks,
 		});
 

@@ -10,12 +10,8 @@ const attendanceSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	date: {
+	dateTime: {
 		type: Date,
-		required: true,
-	},
-	time: {
-		type: String,
 		required: true,
 	},
 	remarks: {
