@@ -46,15 +46,14 @@ exports.getPersonnelById = async (req, res) => {
 	}
 };
 
-exports.updatePersonnel = async (req, res) => {
+exports.updatePersonnelById = async (req, res) => {
 	try {
-		const { qr_code } = req.params; // Assuming you use the QR code as a unique identifier
-		const updateData = req.body;
-
-		const updatedPersonnel = await Personnel.findOneAndUpdate(
-			{ qr_code },
-			updateData,
-			{ new: true } // To get the updated document
+		const updatedPersonnel = await Personnel.findByIdAndUpdate(
+			req.params.id,
+			req.body,
+			{
+				new: true,
+			}
 		);
 
 		if (!updatedPersonnel) {
@@ -67,17 +66,15 @@ exports.updatePersonnel = async (req, res) => {
 	}
 };
 
-exports.deletePersonnel = async (req, res) => {
+exports.deletePersonnelById = async (req, res) => {
 	try {
-		const { qr_code } = req.params;
-
-		const deletedPersonnel = await Personnel.findOneAndRemove({ qr_code });
+		const deletedPersonnel = await Personnel.findByIdAndRemove(req.params.id);
 
 		if (!deletedPersonnel) {
 			return res.status(404).json({ message: 'Personnel not found.' });
 		}
 
-		res.status(204).json(); // No content in the response (successful deletion)
+		res.status(200).json({ message: 'Personnel deleted successfully.' }); // No content in the response (successful deletion)
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
