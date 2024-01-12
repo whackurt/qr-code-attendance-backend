@@ -4,7 +4,7 @@ const User = require('../models/user.model');
 
 exports.register = async (req, res) => {
 	try {
-		const { username, password } = req.body;
+		const { name, username, password } = req.body;
 
 		// Check if the username already exists
 		const existingUser = await User.findOne({ username });
@@ -17,13 +17,22 @@ exports.register = async (req, res) => {
 
 		// Create a new user
 		const newUser = new User({
+			name,
 			username,
 			password: hashedPassword,
 		});
 
 		await newUser.save();
 
-		res.status(201).json({ message: 'User registered successfully.' });
+		res.status(201).json({
+			success: true,
+			message: 'User registered successfully.',
+			data: {
+				_id: newUser._id,
+				name: newUser.name,
+				username: newUser.username,
+			},
+		});
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -48,7 +57,12 @@ exports.login = async (req, res) => {
 		// Create a JSON Web Token (JWT) for authentication
 		const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
 
-		res.status(200).json({ token, id: user._id });
+		res.status(200).json({
+			success: true,
+			message: 'Logged in successfully.',
+			token,
+			id: user._id,
+		});
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
