@@ -6,17 +6,25 @@ const personnelSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+
 	first_name: {
 		type: String,
 		required: true,
 	},
+
 	last_name: {
 		type: String,
 		required: true,
 	},
+
 	position: {
 		type: String,
 		required: true,
+	},
+
+	personnelStatus: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'PersonnelStatus',
 	},
 });
 

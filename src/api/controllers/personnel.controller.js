@@ -3,13 +3,14 @@ const Personnel = require('../models/personnel.model');
 exports.createPersonnel = async (req, res) => {
 	const qr_code =
 		'PQCA' + (await Math.random().toString(36).substring(2, 8)).toUpperCase();
-	const { first_name, last_name, position } = req.body;
+	const { first_name, last_name, position, personnelStatus } = req.body;
 	try {
 		const personnel = await Personnel.create({
 			first_name: first_name,
 			last_name: last_name,
 			position: position,
 			qr_code: qr_code,
+			personnelStatus: personnelStatus,
 		});
 
 		res.status(201).json(personnel);
@@ -20,7 +21,7 @@ exports.createPersonnel = async (req, res) => {
 
 exports.getPersonnel = async (req, res) => {
 	try {
-		const personnel = await Personnel.find();
+		const personnel = await Personnel.find().populate('personnelStatus');
 
 		res.status(200).json(personnel);
 	} catch (error) {
