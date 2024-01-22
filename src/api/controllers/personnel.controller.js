@@ -23,6 +23,9 @@ exports.getPersonnel = async (req, res) => {
 	try {
 		const personnel = await Personnel.find().populate('personnelStatus');
 
+		// Sort personnel array by last name
+		personnel.sort((a, b) => a.last_name.localeCompare(b.last_name));
+
 		res.status(200).json(personnel);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
